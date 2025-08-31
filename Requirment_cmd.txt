@@ -1,0 +1,2 @@
+paru -Syu hyprland swaybg swaylock swayidle foot mako waybar yazi wofi wl_clipboard hyprshot
+paru -Syu ttf-jetbrains-mono-nerd ttf-iosevka-nerd ttf-firacode-nerd ttf-hack-nerd ttf-cascadia-code-nerd
