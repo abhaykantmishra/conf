@@ -1,8 +1,8 @@
 #!/usr/bin/env bash
 
 THEMES_DIR="$HOME/.config/hypr/themes"
-CURRENT_THEME_FILE="$HOME/.config/hypr/current_theme"
-CURRENT_WP_FILE="$HOME/.config/hypr/current_wallpaper"
+CURRENT_THEME_FILE="$HOME/.config/hypr/theme-current"
+CURRENT_WP_FILE="$HOME/.config/hypr/theme-current/wallpapers/1.png"
 
 # Get current theme
 if [ ! -f "$CURRENT_THEME_FILE" ]; then
