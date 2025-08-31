@@ -1,6 +1,8 @@
 #!/usr/bin/env bash
 THEMES_DIR="$HOME/.config/hypr/themes"
-CURRENT_THEME_FILE="$HOME/.config/hypr/current_theme"
+CURRENT_THEME_FILE="$HOME/.config/hypr/theme-current/current_theme"
+
+mkdir -p "$(dirname "$CURRENT_THEME_FILE")"
 
 # Pick next theme
 [ -f "$CURRENT_THEME_FILE" ] && CURRENT_THEME=$(cat "$CURRENT_THEME_FILE") || CURRENT_THEME=""
@@ -14,17 +16,18 @@ THEME=$(ls "$THEMES_DIR" | sort | awk -v cur="$CURRENT_THEME" '
 ')
 echo "$THEME" > "$CURRENT_THEME_FILE"
 
-# Load env variables from colors.conf
-eval $(grep '^env' "$THEMES_DIR/$THEME/colors.conf" | sed 's/env = //')
+# Re-link theme-current/*
+rm -rf "$HOME/.config/hypr/theme-current"
+ln -s "$THEMES_DIR/$THEME" "$HOME/.config/hypr/theme-current"
 
-# Reload Hyprland (must source theme in main hyprland.conf)
+# Reload Hyprland
 hyprctl reload
 
 # Apply Waybar + Mako themes
 ln -sf "$THEMES_DIR/$THEME/waybar.css" ~/.config/waybar/style.css
 ln -sf "$THEMES_DIR/$THEME/mako.conf" ~/.config/mako/config
 
-# GTK theme (make sure your colors.conf defines THEME_FONT & THEME_ICON)
+# GTK theme (optional, if set in colors.conf)
 [ -n "$THEME_FONT" ] && gsettings set org.gnome.desktop.interface font-name "$THEME_FONT"
 [ -n "$THEME_ICON" ] && gsettings set org.gnome.desktop.interface icon-theme "$THEME_ICON"
 
